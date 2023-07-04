@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.scss";
+import Nav from "./components/nav/Nav";
+import Footer from "./components/footer/Footer";
+import Home from "./pages/home/home";
+import MenageTasks from "./pages/menageTasks/MenageTAsks";
+
+/*
+  Home page je po default-u ukljucena
+  Ako je isHomePage true onda prikazujemo home page komponentu i sakrivamo menage tasks komponentu
+  Ako je isHomePage false onda prikazujemo menage tasks komponentu i sakrivamo home page komponentu
+
+  1. isHomePage je true
+  2. Kliknemo da dugme manage tasks
+  3. Pozivamo handleOnClick funkciju i setujemo isHomePage na false
+  4. App komponenta se update-uje i home page se sakriva a manage tasks se prikazuje
+  5. Kliknemo ponovo na dugme manage tasks
+  6. Ponovo pozivamo handleOnClick i setujemo isHomePage na true 
+  7. App komponenta se update-uje i home page se prikazuje a manage tasks se sakriva
+  8. ciklus se ponavlja daljim klikanjem na button
+
+
+*/
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isHomePage, setIsHomePage] = useState(true);
+
+  function handleOnClick() {
+    setIsHomePage(!isHomePage);
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Nav
+        onClick={handleOnClick}
+        btnText={isHomePage ? "Menage Tasks" : "Home pagea"}
+      />
+
+      <main className="container">
+        {isHomePage ? <Home /> : <MenageTasks />}
+      </main>
+
+      <Footer></Footer>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

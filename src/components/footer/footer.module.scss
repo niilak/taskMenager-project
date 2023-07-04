@@ -1,0 +1,13 @@
+.footer_container {
+  display: flex;
+  // background-color: var(--background-color);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  img {
+    height: 2rem;
+  }
+  span {
+    font-size: 0.7rem;
+  }
+}
